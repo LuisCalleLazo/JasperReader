@@ -14,13 +14,21 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.design.JasperDesign;
-// import net.sf.jasperreports.engine.export.JRXlsExporter;
-// import net.sf.jasperreports.engine.export.JRCsvExporter;
-// import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
+import net.sf.jasperreports.engine.export.JRRtfExporter;
+import net.sf.jasperreports.engine.export.JRTextExporter;
+import net.sf.jasperreports.engine.export.JRXmlExporter;
+import net.sf.jasperreports.engine.export.oasis.JROdsExporter;
+import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
+import net.sf.jasperreports.engine.export.ooxml.JRPptxExporter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-// import net.sf.jasperreports.export.SimpleXlsExporterConfiguration;
-// import net.sf.jasperreports.export.SimpleXlsxExporterConfiguration;
-// import net.sf.jasperreports.export.WriterExporterOutput;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleTextReportConfiguration;
+import net.sf.jasperreports.export.SimpleWriterExporterOutput;
+import net.sf.jasperreports.export.SimpleXmlExporterOutput;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -29,10 +37,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-/**
- * Hello world!
- *
- */
+
 public class App 
 {
     private static String inputFile = "";
@@ -99,11 +104,6 @@ public class App
         params = cmd.getOptionValues("p");
     }
 
-    // private static void readParamsReport()
-    // {
-
-    // }
-
 
     private static void processJrxml(Connection connection)
     {
@@ -131,7 +131,7 @@ public class App
             System.out.println("Filling parameteres to .JASPER file...");
             JasperPrint jprint = (JasperPrint) JasperFillManager.fillReport(jasperReport, hm, connection);
             
-            System.out.println("Exporting the JASPER file to PDF file....");
+            System.out.println("Exporting the JASPER file to "+ formatFile +" file....");
 
             switch (formatFile) {
                 case "pdf":
@@ -141,18 +141,80 @@ public class App
                 case "html":
                     JasperExportManager.exportReportToHtmlFile(jprint, outputFile);
                     break;
+                    
+                case "pptx":
+                    JRPptxExporter exp_pptx = new JRPptxExporter();
+                    exp_pptx.setExporterInput(new SimpleExporterInput(jprint));
+                    exp_pptx.setExporterOutput(new SimpleOutputStreamExporterOutput(outputFile));
+                    exp_pptx.exportReport();
+                    break;
+                
+                case "xlsx":
+                    JRXlsxExporter exp_xlsx = new JRXlsxExporter();
+                    exp_xlsx.setExporterInput(new SimpleExporterInput(jprint));
+                    exp_xlsx.setExporterOutput(new SimpleOutputStreamExporterOutput(outputFile));
+                    exp_xlsx.exportReport();
+                    break;
+                
+                case "odt":
+                    JROdtExporter exp_odt = new JROdtExporter();
+                    exp_odt.setExporterInput(new SimpleExporterInput(jprint));
+                    exp_odt.setExporterOutput(new SimpleOutputStreamExporterOutput(outputFile));
+                    exp_odt.exportReport();
+                    break;
 
-                // case "xlsx":
-                //     JRXlsExporter exporter = new JRXlsExporter();
-                //     exporter.set
-                //     break;
+                case "ods":
+                    JROdsExporter exp_ods = new JROdsExporter();
+                    exp_ods.setExporterInput(new SimpleExporterInput(jprint));
+                    exp_ods.setExporterOutput(new SimpleOutputStreamExporterOutput(outputFile));
+                    exp_ods.exportReport();
+                    break;
+                    
+                case "docx":
+                    JRDocxExporter exp_docx = new JRDocxExporter();
+                    exp_docx.setExporterInput(new SimpleExporterInput(jprint));
+                    exp_docx.setExporterOutput(new SimpleOutputStreamExporterOutput(outputFile));
+                    exp_docx.exportReport();
+                    break;
 
-                // case "csv":
-                //     JRCsvExporter csvExporter = new JRCsvExporter();
-                //     csvExporter.setExporterInput(new SimpleExporterInput(inputFile));
-                //     csvExporter.setExporterOutput(new SimpleExporterOutput(outputFile));
-                //     csvExporter.exportReport();
-                //     break;
+                case "txt":
+                    JRTextExporter exp_txt = new JRTextExporter();
+                    
+                    // Configuración de las propiedades del exportador
+                    SimpleTextReportConfiguration reportConfig = new SimpleTextReportConfiguration();
+                    reportConfig.setCharWidth(7f);
+                    reportConfig.setCharHeight(11f);
+                    reportConfig.setPageWidthInChars(0);
+                    reportConfig.setPageHeightInChars(0);
+
+                    exp_txt.setConfiguration(reportConfig);
+                    exp_txt.setExporterInput(new SimpleExporterInput(jprint));
+                    exp_txt.setExporterOutput(new SimpleWriterExporterOutput(outputFile));
+                    exp_txt.exportReport();
+                    break;
+
+
+                case "rtf":
+                    JRRtfExporter exp_rtf = new JRRtfExporter();
+                    exp_rtf.setExporterInput(new SimpleExporterInput(jprint));
+                    exp_rtf.setExporterOutput(new SimpleWriterExporterOutput(outputFile));
+                    exp_rtf.exportReport();
+                    break;
+
+                case "xml":
+                    JRXmlExporter exp_xml = new JRXmlExporter();
+                    exp_xml.setExporterInput(new SimpleExporterInput(jprint));
+                    exp_xml.setExporterOutput(new SimpleXmlExporterOutput(outputFile));
+                    exp_xml.exportReport();
+                    break;
+
+
+                case "csv":
+                    JRCsvExporter exp_csv = new JRCsvExporter();
+                    exp_csv.setExporterInput(new SimpleExporterInput(jprint));
+                    exp_csv.setExporterOutput(new SimpleWriterExporterOutput(outputFile));
+                    exp_csv.exportReport();
+                    break;
             
                 default:
                     JasperExportManager.exportReportToPdfFile(jprint, outputFile);

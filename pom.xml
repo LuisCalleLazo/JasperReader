@@ -42,7 +42,7 @@
     <dependency>
         <groupId>net.sf.jasperreports</groupId>
         <artifactId>jasperreports</artifactId>
-        <version>6.8.0</version>
+        <version>6.17.0</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>
@@ -139,7 +139,7 @@
       <artifactId>jasperreports-fonts</artifactId>
       <version>6.8.0</version>
       <scope>test</scope>
-      <dependency>
+      <!-- <dependency>
           <groupId>net.sf.jasperreports</groupId>
           <artifactId>jasperreports-themes</artifactId>
           <version>6.7.0</version>
@@ -148,7 +148,7 @@
           <groupId>net.sf.jasperreports</groupId>
           <artifactId>jasperreports-customizers</artifactId>
           <version>6.7.0</version>
-      </dependency>
+      </dependency> -->
     </dependency>
     <dependency>
       <groupId>org.apache.lucene</groupId>
@@ -209,7 +209,6 @@
       <artifactId>mssql-jdbc</artifactId>
       <version>12.6.1.jre8</version>
     </dependency>
-
   </dependencies> 
 
   <build>
@@ -253,6 +252,30 @@
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <configuration>
+            <archive>
+                <manifest>
+                    <mainClass>com.jasper.App</mainClass>
+                </manifest>
+            </archive>
+            <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+            <appendAssemblyId>false</appendAssemblyId>
+          </configuration>
+          <executions>
+            <execution>
+              <id>make-assembly</id>
+              <phase>package</phase>
+              <goals>
+                <goal>single</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
