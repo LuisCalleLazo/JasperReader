@@ -19,5 +19,5 @@ java -jar jasperreader.jar
 - `-pass`: Contraseña de la base de datos.
 
 
-## Demo
-java -jar jasperreader-1.0-SNAPSHOT.jar -i "C:/reports/Report.jrxml" -o "C:/Users/you/Desktop/report.pdf" -f pdf -c "jdbc:sqlserver://127.0.0.1;databaseName=DBName;encrypt=true;trustServerCertificate=true" -p Param1==>"GP" -p LogoEmpresa==>"C:/Users/you/Desktop/logo_empresa.png" -usr sa -pass 1234567
+## CMD
+java -jar jasperreader.jar -i "C:/reports/Report.jrxml" -o "C:/Users/you/Desktop/report.pdf" -f pdf -c "jdbc:sqlserver://127.0.0.1;databaseName=DBName;encrypt=true;trustServerCertificate=true" -p Param1==>"GP" -p LogoEmpresa==>"C:/Users/you/Desktop/logo_empresa.png" -usr sa -pass 1234567
