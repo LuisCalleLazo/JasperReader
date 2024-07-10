@@ -138,7 +138,7 @@
       <groupId>net.sf.jasperreports</groupId>
       <artifactId>jasperreports-fonts</artifactId>
       <version>6.8.0</version>
-      <scope>test</scope>
+      <scope>compile</scope>
       <!-- <dependency>
           <groupId>net.sf.jasperreports</groupId>
           <artifactId>jasperreports-themes</artifactId>
