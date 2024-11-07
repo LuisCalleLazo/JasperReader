@@ -18,4 +18,5 @@ buildNumber.properties
 
 
 # JAR
+*.jar
 integration/jasperreader.jar

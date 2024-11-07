@@ -4,6 +4,9 @@
 Este proyecto es una aplicación Java que genera informes usando JasperReports a partir de archivos JRXML (JasperSoft Studio).
 En los siguientes formatos: xlsx, docx, pdf, txt, rtf, xml, pptx, html, odt, ods y csv
 
+## Limitaciones
+- No es capaz de generar subreportes
+
 ## Ejecución
 Para ejecutar esta aplicación, usa el siguiente comando:
 
@@ -17,6 +20,20 @@ java -jar jasperreader.jar
 - `-p`: Parámetros adicionales requeridos por el informe.
 - `-usr`: Usuario de la base de datos.
 - `-pass`: Contraseña de la base de datos.
+
+### Cadenas de conexión
+
+- SQL SERVER
+> "jdbc:sqlserver://<HOST>:<PORT>;databaseName=<DATABASE>;user=<USERNAME>;password=<PASSWORD>;encrypt=false";
+
+- POSTGRESQL
+> "jdbc:postgresql://<HOST>:<PORT>/<DATABASE>";
+
+- MYSQL - Parameters (-usr, -pass) any value
+> "jdbc:mysql://<HOST>:<PORT>/<DATABASE>?user=<USERNAME>&password=<PASSWORD>";
+
+- MONGO DB - Parameters (-usr, -pass) any value
+> "mongodb://<USERNAME>:<PASSWORD>@<HOST>:<PORT>/<DATABASE>";
 
 
 ## CMD
