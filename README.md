@@ -24,17 +24,21 @@ java -jar jasperreader.jar
 ### Cadenas de conexión
 
 - SQL SERVER
-> "jdbc:sqlserver://<HOST>:<PORT>;databaseName=<DATABASE>;user=<USERNAME>;password=<PASSWORD>;encrypt=false";
+> "jdbc:sqlserver://HOST:PORT;databaseName=DATABASE;user=USERNAME>;password=PASSWORD;encrypt=false";
 
 - POSTGRESQL
-> "jdbc:postgresql://<HOST>:<PORT>/<DATABASE>";
+> "jdbc:postgresql://HOST:PORT/DATABASE";
 
 - MYSQL - Parameters (-usr, -pass) any value
-> "jdbc:mysql://<HOST>:<PORT>/<DATABASE>?user=<USERNAME>&password=<PASSWORD>";
+> "jdbc:mysql://HOST:PORT/DATABASE?user=USERNAME&password=PASSWORD";
 
 - MONGO DB - Parameters (-usr, -pass) any value
-> "mongodb://<USERNAME>:<PASSWORD>@<HOST>:<PORT>/<DATABASE>";
+> "mongodb://USERNAME:PASSWORD@HOST:PORT/DATABASE";
 
 
 ## CMD
 java -jar jasperreader.jar -i "C:/reports/Report.jrxml" -o "C:/Users/you/Desktop/report.pdf" -f pdf -c "jdbc:sqlserver://127.0.0.1;databaseName=DBName;encrypt=true;trustServerCertificate=true" -p Param1==>"GP" -p LogoEmpresa==>"C:/Users/you/Desktop/logo_empresa.png" -usr sa -pass 1234567
+
+# Jar Disponibles
+- [Only SqlServer](https://drive.google.com/file/d/1ObuoSWvo946CrbZZf6PrxgrYgjrccLuP/view?usp=sharing)
+- [SqlServer, PostgreSql, Mysql, MongoDb](https://drive.google.com/file/d/15Bu_hJbwKMsxLLtkaneb9Y0dE7r1R3Qz/view?usp=sharing)
